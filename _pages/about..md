@@ -4,7 +4,8 @@ permalink: /about/
 layout: single
 ---
 
-## pys0531.github.io 블로그
+### pys0531.github.io 블로그
+-----
 
 이 블로그는 하루 공부한 내용을 노트하는 블로그이다.
 
