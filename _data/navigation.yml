@@ -1,9 +1,13 @@
 # main links
 main:
+  - title: "프로젝트"
+    url: https://github.com/pys0531/project/
+  - title: "카테고리"
+    url: https://github.com/pys0531/categories/
   - title: "Github" # "Quick-Start Guide"
     url: https://github.com/pys0531 # https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  - title: "About"
+    url: https://github.com/pys0531/about/
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"
