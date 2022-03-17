@@ -1,12 +1,14 @@
 ---
 title:  <font size="5">Pytorch에서 Tensorboard 실행</font>
 excerpt: "Pytorch에서 Tensorboard 실행"
+toc: true
+toc_sticky: true
 categories:
-  - Machine Learning
+  - Pytorch
 tags:
-  - Blog
   - Machine Learning
   - Tensorboard
+  - Pytorch
 last_modified_at: 2022-03-14T16:38:00-55:00
 ---
 
@@ -61,8 +63,9 @@ writer_dict['writer'].close()
 터미널에 Log 파일이 저장된 폴더 명시
 주소창에 <http://localhost:6006/>를 입력하면 확인가능
 </font>
+```
 $ tensorboard logdir="../output/log/"
-
+```
 
 
 ## Scalar 이외에 다른 데이터 추가
