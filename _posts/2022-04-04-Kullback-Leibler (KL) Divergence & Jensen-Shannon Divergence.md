@@ -26,7 +26,8 @@ last_modified_at: 2022-04-04T15:30:00-16:10:00
 <br>
 수식에서 확인해보면 두 정보량간의 차이의 기댓값이다.<br><font size="2">=> $-log(q_i) - (-log(p_i))$ => $log(p_i) - log(q_i)$ </font>
 <br><br>
-간단히 말하면 KL-Divergence는 근사시 발생하는 정보 손실량의 기댓값이다
+간단히 말하면 KL-Divergence는 근사시 발생하는 정보 손실량의 기댓값이다. 두 분포의 차이를 이용해 얼마나 유사한지 근사치를 나타낸다.
+이를 이용해서 보통 DeepLearning에서는 Cross-Entropy Loss를 구하곤한다.
 
 <br><br>
 **Jensen-Shannon Divergence**<br>
