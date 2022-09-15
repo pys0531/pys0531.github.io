@@ -20,7 +20,7 @@ last_modified_at: 2022-09-15T18:09:00-55:00
 아래의 그림은 실함수 $f(x_1,x_2,x_3,...,x_n)$에 대하여 Hessian Matrix를 나타낸것이다.<br>
  => 함수 $f$의 이계도함수를 이용하여 행렬을 만든것이다.
 
-![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-09-15-Hessian Matrix/Hessian Matrix.png){: .align-center}
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-09-15-Hessian Matrix/Hessian Matrix.PNG){: .align-center}
 
 
 우리는 보통 미분을 이용하여 함수의 기울기, 변곡점을 찾는다. 즉, 함수의 형태를 파악한다. 2차함수의 경우 이계도함수를 통해 +면 아래로 볼록, -면 위로 볼록이라는 것을 알 수 있었다.<br>
