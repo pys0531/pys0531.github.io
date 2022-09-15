@@ -1,6 +1,6 @@
 ---
 title:  <font size="5">Hessian Matrix</font>
-excerpt: "Active Learning"
+excerpt: "Hessian Matrix"
 toc: true
 toc_sticky: true
 use_math: true
