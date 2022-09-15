@@ -31,7 +31,7 @@ last_modified_at: 2022-09-15T18:09:00-55:00
 <br>
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-09-15-Hessian Matrix/Hessian Matrix Graph2.gif){: .align-center}
 <center> <font size="2"> <div markdown = "1"> 
-**(빨간색: 양수, 파란색: 음수)**
+**Eigenvector : 화살표 방향 / Eigenvalue : 화살표 크기, (빨간색: 양수 / 파란색: 음수)**
 </div> </font> </center>
 <br>
 Hessian Matrix은 위의 그림과 같이 bowl형태의 함수를 변환시킨다.
@@ -50,6 +50,7 @@ Hessian Matrix도 공간의 변형을 일으킨다. Hessian Matrix의 Eigenvecto
 위에서 말했듯이, 이계도함수가 연속이라면 Hessian Matrix는 Symmetric Matrix이고, Symmetric Matrix면 Eigenvector는 직각을 이루며, Eigenvalue는 실수의 고유값을 갖는다.
 
 그렇기 때문에 Eigenvector가 Main Axis, Eigenvalue가 Scale이라는 기준이 되어 함수를 변형시키게 된다.
+
 
 </div>
 </font>
