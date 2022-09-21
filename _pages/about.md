@@ -1,7 +1,8 @@
 ---
-title: "About"
+title: "about"
 permalink: /about/
 layout: about
+entries_layout: linear
 ---
 
 
