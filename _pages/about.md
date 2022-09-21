@@ -1,7 +1,7 @@
 ---
-title: "about"
+title: "About"
 permalink: /about/
-layout: single
+layout: about
 ---
 
 

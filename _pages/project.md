@@ -1,7 +1,7 @@
 ---
-title: "프로젝트"
-permalink: /categories/project/
-layout: category
+title: "Project"
+permalink: /project/
+layout: project
 author_profile: true
 taxonomy: project
 ---
