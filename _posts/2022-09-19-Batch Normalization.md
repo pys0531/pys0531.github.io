@@ -74,7 +74,7 @@ Test시에는 Test데이터에 대해 Batch Normalization을 진행하는것이 
 하지만 Internal Covariate Shift 가설이 Batch Normalization이 성능을 높혀주는데에 큰 상관이 없다는 주장이 있다. 배치정규화 직후 랜덤 노이즈를 주어도 성능에 큰 차이가없다는 결과가 나온것이다. 눈으로 봤을때에도 Batch Normalization이 Standard과 비교하여 Normalization이 잘됐다고 보기 어렵다.
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-09-19-Batch Normalization/Random_Noise.png){: .align-center}
 
-또한, 동일 이미지에 대해 특정 Layer에서 Weight Update전 기울기와 Update후 기울기 차이를 그래프로 보더라도 Batch Normalization을 사용해도 Internal Covariate Shift(ICS)가 그대로이거나 오히려 증가하는것을 볼수 있다. **<font size="2">(기울기 차이가 크면 ICS가 크고 / 작으면 ICS가 작다)</font>**
+또한, 아래의 그림과 같이 동일 이미지에 대해 특정 Layer에서 Weight Update전 기울기와 Update후 기울기를 L2-diff 및 Cos Angle 그래프로 보면, Batch Normalization을 사용해도 Internal Covariate Shift(ICS)가 그대로이거나 오히려 증가하는것을 볼수 있다. **<font size="2">(기울기 차이가 크면 ICS가 크고 / 작으면 ICS가 작다)</font>**
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-09-19-Batch Normalization/ICN Graph.png){: .align-center}
 <br>
 
@@ -86,7 +86,7 @@ Test시에는 Test데이터에 대해 Batch Normalization을 진행하는것이 
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-09-19-Batch Normalization/Graph.png){: .align-center}
 **첫번째 그림**은 Loss에 따른 기울기를 보여주고있다. Batch Normalization의 Loss가 더 안정적으로 떨어지는것을 볼수있다.
 <br><br>
-**두번째 그림**은 기울기 예측성(Predictiveness)을 보여주고 있다. 초기 가중치의 위치에서 기존의 기울기 방향과 다양한 Step에서의 기울기 방향의 차이를 보여주는것이다. 그러므로 기울기가 많이 요동친다고 하면 신뢰도가 떨어지는것이고, 안정될수록 신뢰도가 높다고 판단할수 있으며, Batch Normalization의 그래프가 더 안정적인것을 볼수있다. 예를들어 특정 위치의 기울기에 대해서 Learning Rate를 크게크게 움직여도 기울기의 변화가 거의 없으므로 Batch Normalization이 Learning Rate에 둔감하다는것을 확인할수 있다.
+**두번째 그림**은 기울기 예측성(Predictiveness)을 보여주고 있다. 초기 가중치의 위치에서 기존의 기울기 방향과 다 양한 Step에서의 기울기 방향의 차이를 보여주는것이다. 그러므로 기울기가 많이 요동친다고 하면 학습의 신뢰도가 떨어지는것이고, 안정될수록 신뢰도가 높다고 판단할수 있으며, Batch Normalization의 그래프가 더 안정적인것을 볼수있다. 예를들어 특정 위치의 기울기에 대해서 Learning Rate를 크게크게 움직여도 기울기의 변화가 거의 없으므로 Batch Normalization이 Learning Rate에 둔감하다는것을 확인할수 있다.
 <br><br>
 **세번째 그림**은 "effective" β-smoothness를 보여주고 있는데 β-smoothness는 Lipschitz함수를 통해 확인할수 있다.
 Lipschitz-Continuous Function은 **"연속적이고 미분이 가능하고 어떠한 두 점 사이의 거리를 일정 비 이상으로 증가시키지 않는 함수"**를 의미한다.
@@ -94,7 +94,7 @@ Lipschitz-Continuous Function은 **"연속적이고 미분이 가능하고 어�
 <br>
 그림에서 보는것과 같이 큰 Step만큼 이동한 뒤에도 안정적인 그래프를 보이고있다.<font size="2">(Lipschitzness가 향상된다)</font>
 <br>
-그러므로, 파라미터에 대한 Loss Function이 Lipschitz-Continuous라면 상대적으로 안정적이게 학습할 수 있는 것이다. <font size="2">(Neural Network가 안정적임을 증명할때 많이 사용되곤 함)</font>
+그러므로, 큰 Step만큼 이동한 뒤에도 기울기의 방향이 초기와 유사할 가능성이 높으므로, 파라미터에 대한 Loss Function이 Lipschitz-Continuous라면 상대적으로 안정적이게 학습할 수 있는 것이다. <font size="2">(Neural Network가 안정적임을 증명할때 많이 사용되곤 함)</font>
 <br><br>
 
 
