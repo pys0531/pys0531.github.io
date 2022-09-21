@@ -4,9 +4,15 @@ permalink: /about/
 layout: single
 ---
 
-### pys0531.github.io 블로그
+
+안녕하세요, AI 공부를 즐기는 박영신입니다.
+
+### 주요 기술
 -----
 
-이 블로그는 하루 공부한 내용을 정리하는 곳이다.
 
-블로그 : <https://pys0531.github.io/>
+
+
+### 프로젝트
+-----
+
