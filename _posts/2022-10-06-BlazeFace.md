@@ -119,14 +119,14 @@ BlazeFace의 Feature Extractor는 $8×8$ 아래의 resolution으로 줄이지 �
 
 BlazeFace 66K images Dataset에 대해서  학습했고, 직접만든 지역적으로 다양한 2K images Dataset으로 평가하였다. 정면 카메라 모델은 얼굴이 20%이상 차지하는 이미지로 구성되있다.(후면 카메라 모델의 경우 5%이상) <br>
 Regression parameter errors는 inter-ocular distance (IOD:눈 사이의 거리)에 의해 normailzation했고, median absolute error(중앙값 절대 편차)는 IOD의 7.4%로 측정되었다. 위에서 언급한 jitter metric은 IOD의 3%로 측정되었다. <br>
-아래의 Table 1은 average pricision(AP) metric / 정면 detection network의 mobile GPU inference time / 같은 Anchor 구조 사용한 MobileNetV2 Object Detector와의 비교를 보여준다.(MobileNetV2-SSD) 추론시간을 평가할 때, TensorFlow Lite GPU의 16-bit floating point 사용한다.
+아래의 **Table 1**은 average pricision(AP) metric / 정면 detection network의 mobile GPU inference time / 같은 Anchor 구조 사용한 MobileNetV2 Object Detector와의 비교를 보여준다.(MobileNetV2-SSD) 추론시간을 평가할 때, TensorFlow Lite GPU의 16-bit floating point 사용한다.
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-10-06-BlazeFace/Precision_Speed_Performance.png){: .align-center} <br>
 
-Table 2는 다양한 Flagship Devices에 대해 두 모델의 GPU inference speed 관점에서 보여준다.
+**Table 2**는 다양한 Flagship Devices에 대해 두 모델의 GPU inference speed 관점에서 보여준다.
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-10-06-BlazeFace/Devices_Speed_Performance.png){: .align-center} <br>
 
 <!--
-Table 3에서는 더 작은 Model Size는 Regression parameter 예측 퀄리티를 저하시킴을 나타낸다. 다음섹션에서 확인하겠지만, 이것은 전체 AR Pipeline 퀄리티의 비례적인 저하를 필수적으로 초래하지 않는다.
+**Table 3**에서는 더 작은 Model Size는 Regression parameter 예측 퀄리티를 저하시킴을 나타낸다. 다음섹션에서 확인하겠지만, 이것은 전체 AR Pipeline 퀄리티의 비례적인 저하를 필수적으로 초래하지 않는다.
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-10-06-BlazeFace/Small_Model_Performance.png){: .align-center} <br>
 -->
 
@@ -138,7 +138,7 @@ Table 3에서는 더 작은 Model Size는 Regression parameter 예측 퀄리티�
 **<center>5. Application</center>**
 
 BlazeFace는 Full Image 또는 Video Frame을 실행하고, 모든 Face관련 Computer Vision Application에 첫 번째 단계로 사용될수 있다. (예를들어, 2D/3D Facial의 Keypoints / Contour / Surface Geometry Estimation / Features or Expression Classification / Region Segmentation.) 추정된 몇가지 Keypoint를 이용하여 crop된 얼굴이 가운데로 오도록 회전할수 있으며, scale normalize하고 roll angle을 0에 가깝게 만들 수 있다. 이것은 상당한 translation과 rotation의 불변성에 대한 요구사항을 제거하여, 더 나은 Computation Resource을 할당하도록 도와준다. (CNN에 대한 Complexity를 낮춰준다는 말 같음) <br>
-Face Contour Estimation을 특별한 예로 설명하면은, Figure 3에서는 BlazeFace 결과물로 6개의 얼굴 Keypoint와 Bounding Box를 보여주고(Red), 이것은 약간 확장된 Crop(Green)에 적용되므로 좀 더 복잡한 Face Contour Estimation Model에 Refine된다. 즉, Keypoint는 더 자세한 Bounding Box(Green)를 추정하고, 다음 프레임의 Face Detection Tracking을 위해 재사용 될 수 있다. 이러한 전략 실패를 감지하기 위해, Contours model은 얼굴이 존재하는지와 제공된 Rectangular Crop에 적절하게 Align되었는지 탐지한다. 이러한 조건을 위반할 때 마다, BlazeFace Detector는 다시 시작된다. <br>
+Face Contour Estimation을 특별한 예로 설명하면은, **Figure 3**에서는 BlazeFace 결과물로 6개의 얼굴 Keypoint와 Bounding Box를 보여주고(Red), 이것은 약간 확장된 Crop(Green)에 적용되므로 좀 더 복잡한 Face Contour Estimation Model에 Refine된다. 즉, Keypoint는 더 자세한 Bounding Box(Green)를 추정하고, 다음 프레임의 Face Detection Tracking을 위해 재사용 될 수 있다. 이러한 전략 실패를 감지하기 위해, Contours model은 얼굴이 존재하는지와 제공된 Rectangular Crop에 적절하게 Align되었는지 탐지한다. 이러한 조건을 위반할 때 마다, BlazeFace Detector는 다시 시작된다. <br>
 즉, Keypoint는 Face Align과 Tracking에 사용되므로써, 매 프레임마다 작동되는 것이 아닌, Tracking이 실패했을 때 처음으로 한번 시작되므로 Computation Saving이 가능하다.
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-10-06-BlazeFace/Tracking.png){: .align-center} <br>
 
