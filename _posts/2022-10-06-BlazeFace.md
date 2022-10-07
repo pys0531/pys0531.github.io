@@ -40,12 +40,12 @@ BlazeFace는 모바일에 최적화된 모델이다. 플래그쉽 스마트폰�
 <br><br>
 #### <center>1. Introduction</center>
 
-최근, 깊은 네트워크에서 다양한 모델 개선으로 인해 Real-Time Object Detection이 가능해졌고, 그러므로 모바일에서 가능한 빠르게 동작해야하며, Real-Time 벤치마크 성능보다 더 높아야한다.
+최근, 깊은 네트워크에서 다양한 모델 개선으로 인해 Real-Time Object Detection이 가능해졌다. 그러므로 모바일에서 가능한 빠르게 동작해야하며, Real-Time 벤치마크 성능보다 더 높아야한다.
 <br>
-그래서 BlazeFace는 모바일 GPU Inference에 최적화된 모델을 제안한다. SSD(Single Shot Multibox Detector)를 적용하며 주된 기여는:<br>
+그래서 BlazeFace는 모바일 GPU Inference에 최적화된 모델을 제안한다. SSD(Single Shot Multibox Detector) 모델구조를 변형하며, 주된 기여는:<br>
 **1. Inference Speed 관련:**<br>
 &nbsp;&nbsp;&nbsp;&nbsp;1.1 Lightweight Object Detection을 위해 특별히 제작된, MobileNet V1/V2 구조와 관련된 매우작은 CNN 모델<br>
-&nbsp;&nbsp;&nbsp;&nbsp;1.2 GPU를 효과적으로 사용하기 위한, SSD에서 수정된 새로운 Anchor 구조, (Anchor = Priors(SSD 전문용어)이고 네트워크 예측을 조절하는데 사용하며, 미리 만들어둔 정적경계상자이다.)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.2 GPU를 효과적으로 사용하기 위한, SSD에서 수정된 새로운 Anchor 구조 (Anchor = Priors(SSD 전문용어)이고 네트워크 예측을 조절하는데 사용하며, 미리 만들어둔 정적경계상자이다.)<br>
 
 **2. Predict Quality 관련:** 중첩된 예측 사이에 부드러운  tie resolution과 안정감을 얻기위해 non-maximum suppression 대신에 개선된 tie resolution strategy를 사용한다.
 <br><br>
@@ -58,7 +58,7 @@ BlazeFace는 모바일에 최적화된 모델이다. 플래그쉽 스마트폰�
 #### <center>2. Face detection for AR pipelines</center>
 
 BlazeFace는 모바일 카메라에서 얼굴을 Detection하는데에 초점을 둔다. 모바일의 정면과 후면카메라의 서로다른 Focal Length와 일반적으로 캡처된 오브젝트 크기 때문에 분리된 모델을 구축한다.<br>
-뿐만 아니라, axis-aligned face rectangles을 예측한다. BlazeFace 모델은 얼굴 회전(roll angle)을 추정할수 있도록 6개의 Facial Keypoint Coordinates를 만든다. (eye centers, ear tragions, mouth center, and nose tip) 이는 회전된 얼굴 박스를 비디오 프로세스 파이프라인의 후속 작업단계에 전달할 수 있고, 후속 처리단계에서 변형과 회전 불변성을 완화시킨다.
+뿐만 아니라, axis-aligned face rectangles을 예측한다. BlazeFace 모델은 얼굴 회전(roll angle)을 추정할수 있도록 6개의 Facial Keypoint Coordinates를 만든다. (eye centers, ear tragions, mouth center, and nose tip) 이는 회전된 얼굴 박스를 비디오 프로세스 파이프라인의 후속 작업단계에 전달할 수 있고, 후속 처리단계에서 translation과 rotation invariance을 완화시킨다. (얼굴의 회전을 추정하고, align하여 rotation에 대한 Complexity를 완화시킨다는 뜻인거 같음.)
 <br><br>
 
 
@@ -73,7 +73,7 @@ BlazeFace의 모델 구조는 아래에 논의된 4가지 중요한 디자인을
 
 
 **Enlarging the receptive field sizes.** <br>
-최근 CNN구조는 모델 그래프 전곳에 $3×3$conv Kernels을 선호하는 경향이 있는 반면에, BlazeFace는 Depthwise Seperable Convolution을 주목한다. Depthwise Seperable Convolution의 연산의 대부분은 Pointwise연산에 의해 지배된다. 예를 들어, $s×s×c$ input tensor에서 $k×k$ Kernel을 갖는 Depthwise Conv 처리하기 위해 필요한 연산량은 $s^2ck^2$이다. 반만에 그 다음에 오는 Pointwise Conv 연산은 $d$ channel을 output으로 갖는 $1×1$ conv은 $s^2cd$의 연산량으로 구성된다. Pointwise 연산은 Depthwise 연산 대비 $d/k^2$배 만큼 연산량을 갖는다.<br>
+최근 CNN구조는 모델 그래프 전곳에 $3×3$conv Kernels을 선호하는 경향이 있는 반면에, BlazeFace는 Depthwise Seperable Convolution을 주목한다. Depthwise Seperable Convolution의 연산의 대부분은 Pointwise연산이 차지한다. 예를 들어, $s×s×c$ input tensor에서 $k×k$ Kernel을 갖는 Depthwise Conv 처리하기 위해 필요한 연산량은 $s^2ck^2$이다. 반만에 그 다음에 오는 Pointwise Conv 연산은 $d$ channel을 output으로 갖는 $1×1$ conv은 $s^2cd$의 연산량으로 구성된다. Pointwise 연산은 Depthwise 연산 대비 $d/k^2$배 만큼 연산량을 갖는다.<br>
 실제로, Metal Performance Shaders을 실행한 iPhone X에서 16-bit floating point 연산 $3×3$ Depthwise Conv은 $56×56×128$ tensor의 경우 0.07ms 걸린다. 반면에 그 다음 오는 128에서 128 채널로 $1×1$ Conv하는 경우 0.3ms보다 4.3배 느리다. <br>
 
 >정리하자면, Depthwise Seperable Convolution은 Depthwise + Pointwise Conv이며, 기존 Convolution 연산보다 낮은 연산량을 갖는다. <br>
@@ -84,10 +84,12 @@ Pointwise의 경우 input tensor가 $s×s×c$이고, $1×1×c$ Kernel을 가지�
 이때, Pointwise conv는 Depthwise conv보다 $d/k^2$배 만큼 연산량을 갖는다. <br>
 
 이것은 Depthwise part의 Kernel Size를 늘리는것은 상대적으로 더 가벼움을 의미한다. 그래서 BlazeFace에서는 Bottleneck 구조에서 $5×5$ Kernel을 사용한다. $5×5$ Kernel을 사용하므로써, 특정 Receptive field 크기에 도달하기 위한 레이어 갯수를 줄일 수 있다. <br>
-MobileNetV2 bottleneck은 depth-increasing expansion -> depth-decreasing projection pointwise conv(비선형성에 분리된)를 진행한다. 반면에 BlazeFace는 중간 tensor에 매우 작은 채널을 적용하기 위해, bottleneck 구조에서 residual connections이 “expanded”(increased) 채널 resolution에서 수행하도록 단계를 바꾼다. 즉, depth-decreasing -> depth-increasing로 변경한다. <br>
- Depthwise Conv의 low overhead(추가적으로 사용되는 시간/메모리/자원)는 두 Pointwise Conv 사이에 또 다른 Layer를 도입할수 있도록 해준다. 이것이 Double BlazeBlock의 형태이다. Double BlazeBlock은 사용된다.
+MobileNetV2 bottleneck에서는 depth-increasing(expansion, Pointwise Conv) -> Depthwise Conv -> depth-decreasing(projection, 비선형성에서 분리된 Pointwise Conv)이라는 Inverted Residual 구조로 진행한다. 반면에 BlazeFace는 중간 tensor에 매우 작은 채널을 적용하기 위해, bottleneck 구조에서 residual connections이 “expanded”(increased) 채널 resolution에서 수행하도록 단계를 바꾼다. 즉, depth-decreasing -> depth-increasing로 변경한다. <br>
+ Depthwise Conv의 low overhead(추가적으로 사용되는 시간/메모리/자원)는 두 Pointwise Conv 사이에 또 다른 Layer를 도입할수 있도록 해준다. 이것이 Double BlazeBlock의 형태이다. Conv 갯수와 Bottleneck 유무에 따라 Single BlazeBlock과 Double BlazeBlock로 나뉜다.
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-10-06-BlazeFace/BlazeBlock.png){: .align-center} <br>
 
+>![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-10-06-BlazeFace/Block_Compare.png){: .align-center} <br>
+예시로 나온 다른 Block들과 비교를 해보면, Resnet논문에서는 Residual Block의 SkipConnection을 통해 Vanishing Gradient를 방지해 더 깊은 Network학습이 가능했다. Resnet-50 이상부터는 파라미터 갯수도 많이지고 깊이도 깊어져 Bottleneck 구조의 $1×1$Conv를 적용해서 연산량도 줄이고, Overffiting도 방지하였다. MobileNetv2에서는 DepthWiseSeperable Conv를 이용한 Inverted Bottleneck 구조를 사용하여 모바일에서도 돌아가도록 연산량을 줄였다. BlazeBlock은 위에서 말한것 처럼 MobileNetv2의 Inverted Bottleneck 구조를 변경하여 사용한다.
 
 **Feature extractor.** <br>
 특정한 예를들기 위해, 정면 카메라 모델을 위한 Feature extractor에 초점을 둔다. 이것은 더 작은 범위의 Object Scale을 설명한다. 그러므로 더 낮은 계산량을 요구한다. Extractor는 $128×128$ RGB이미지를 input으로 하고, 5개의 Single BlazeBlock과 6개의 Double BlazeBlock으로 구성되있다. 가장 높은 tensor depth는 96이고, 가장 낮은 spatial resolution은 $8×8$이다. (SSD는 $1×1$ resolution까지 줄인다.)
@@ -137,7 +139,7 @@ Regression parameter errors는 inter-ocular distance (IOD:눈 사이의 거리)�
 
 #### <center>5. Application</center>
 
-BlazeFace는 Full Image 또는 Video Frame을 실행하고, 모든 Face관련 Computer Vision Application에 첫 번째 단계로 사용될수 있다. (예를들어, 2D/3D Facial의 Keypoints / Contour / Surface Geometry Estimation / Features or Expression Classification / Region Segmentation.) 추정된 몇가지 Keypoint를 이용하여 crop된 얼굴이 가운데로 오도록 회전할수 있으며, scale normalize하고 roll angle을 0에 가깝게 만들 수 있다. 이것은 상당한 translation과 rotation의 불변성에 대한 요구사항을 제거하여, 더 나은 Computation Resource을 할당하도록 도와준다. (CNN에 대한 Complexity를 낮춰준다는 말 같음) <br>
+BlazeFace는 Full Image 또는 Video Frame을 실행하고, 모든 Face관련 Computer Vision Application에 첫 번째 단계로 사용될수 있다. (예를들어, 2D/3D Facial의 Keypoints / Contour / Surface Geometry Estimation / Features or Expression Classification / Region Segmentation.) 추정된 몇가지 Keypoint를 이용하여 crop된 얼굴이 가운데로 오도록 회전할수 있으며, scale normalize하고 roll angle을 0에 가깝게 만들 수 있다. 이것은 상당한 translation과 rotation invariance에 대한 요구사항을 제거하여, 더 나은 Computation Resource을 할당하도록 도와준다. (CNN에 대한 Complexity를 낮춰준다는 말 같음) <br>
 Face Contour Estimation을 특별한 예로 설명하면은, **Figure 3**에서는 BlazeFace 결과물로 6개의 얼굴 Keypoint와 Bounding Box를 보여주고(Red), 이것은 약간 확장된 Crop(Green)에 적용되므로 좀 더 복잡한 Face Contour Estimation Model에 Refine된다. 즉, Keypoint는 더 자세한 Bounding Box(Green)를 추정하고, 다음 프레임의 Face Detection Tracking을 위해 재사용 될 수 있다. 이러한 전략 실패를 감지하기 위해, Contours model은 얼굴이 존재하는지와 제공된 Rectangular Crop에 적절하게 Align되었는지 탐지한다. 이러한 조건을 위반할 때 마다, BlazeFace Detector는 다시 시작된다. <br>
 즉, Keypoint는 Face Align과 Tracking에 사용되므로써, 매 프레임마다 작동되는 것이 아닌, Tracking이 실패했을 때 처음으로 한번 시작되므로 Computation Saving이 가능하다.
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-10-06-BlazeFace/Tracking.png){: .align-center} <br>
