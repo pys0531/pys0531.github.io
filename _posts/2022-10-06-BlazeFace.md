@@ -26,7 +26,7 @@ BlazeFace 논문 리뷰를 위해 의역하여 작성.
 
 
 
-**<center>Abstract</center>**
+#### <center>Abstract</center>
 
 BlazeFace는 모바일에 최적화된 모델이다. 플래그쉽 스마트폰에서 200-1000+ FPS까지 나오며, Face Region Segmentaion / Facial Features or Expression Classification / 2D/3D Facial Keypoint or Geometry Estimation 같은 정확한 얼굴영역이 필요한 다양한 작업에 적용할 수 있다.
 <br>
@@ -38,7 +38,7 @@ BlazeFace는 모바일에 최적화된 모델이다. 플래그쉽 스마트폰�
 
 
 <br><br>
-**<center>1. Introduction</center>**
+#### <center>1. Introduction</center>
 
 최근, 깊은 네트워크에서 다양한 모델 개선으로 인해 Real-Time Object Detection이 가능해졌고, 그러므로 모바일에서 가능한 빠르게 동작해야하며, Real-Time 벤치마크 성능보다 더 높아야한다.
 <br>
@@ -55,7 +55,7 @@ BlazeFace는 모바일에 최적화된 모델이다. 플래그쉽 스마트폰�
 
 
 
-**<center>2. Face detection for AR pipelines</center>**
+#### <center>2. Face detection for AR pipelines</center>
 
 BlazeFace는 모바일 카메라에서 얼굴을 Detection하는데에 초점을 둔다. 모바일의 정면과 후면카메라의 서로다른 Focal Length와 일반적으로 캡처된 오브젝트 크기 때문에 분리된 모델을 구축한다.<br>
 뿐만 아니라, axis-aligned face rectangles을 예측한다. BlazeFace 모델은 얼굴 회전(roll angle)을 추정할수 있도록 6개의 Facial Keypoint Coordinates를 만든다. (eye centers, ear tragions, mouth center, and nose tip) 이는 회전된 얼굴 박스를 비디오 프로세스 파이프라인의 후속 작업단계에 전달할 수 있고, 후속 처리단계에서 변형과 회전 불변성을 완화시킨다.
@@ -67,7 +67,7 @@ BlazeFace는 모바일 카메라에서 얼굴을 Detection하는데에 초점을
 
 
 
-**<center>3. Model architecture and design</center>**
+#### <center>3. Model architecture and design</center>
 
 BlazeFace의 모델 구조는 아래에 논의된 4가지 중요한 디자인을 고려사항을 중심으로 구축되었다.
 
@@ -115,7 +115,7 @@ BlazeFace의 Feature Extractor는 $8×8$ 아래의 resolution으로 줄이지 �
 
 
 
-**<center>4. Experiments</center>**
+#### <center>4. Experiments</center>
 
 BlazeFace 66K images Dataset에 대해서  학습했고, 직접만든 지역적으로 다양한 2K images Dataset으로 평가하였다. 정면 카메라 모델은 얼굴이 20%이상 차지하는 이미지로 구성되있다.(후면 카메라 모델의 경우 5%이상) <br>
 Regression parameter errors는 inter-ocular distance (IOD:눈 사이의 거리)에 의해 normailzation했고, median absolute error(중앙값 절대 편차)는 IOD의 7.4%로 측정되었다. 위에서 언급한 jitter metric은 IOD의 3%로 측정되었다. <br>
@@ -135,7 +135,7 @@ Regression parameter errors는 inter-ocular distance (IOD:눈 사이의 거리)�
 
 
 
-**<center>5. Application</center>**
+#### <center>5. Application</center>
 
 BlazeFace는 Full Image 또는 Video Frame을 실행하고, 모든 Face관련 Computer Vision Application에 첫 번째 단계로 사용될수 있다. (예를들어, 2D/3D Facial의 Keypoints / Contour / Surface Geometry Estimation / Features or Expression Classification / Region Segmentation.) 추정된 몇가지 Keypoint를 이용하여 crop된 얼굴이 가운데로 오도록 회전할수 있으며, scale normalize하고 roll angle을 0에 가깝게 만들 수 있다. 이것은 상당한 translation과 rotation의 불변성에 대한 요구사항을 제거하여, 더 나은 Computation Resource을 할당하도록 도와준다. (CNN에 대한 Complexity를 낮춰준다는 말 같음) <br>
 Face Contour Estimation을 특별한 예로 설명하면은, **Figure 3**에서는 BlazeFace 결과물로 6개의 얼굴 Keypoint와 Bounding Box를 보여주고(Red), 이것은 약간 확장된 Crop(Green)에 적용되므로 좀 더 복잡한 Face Contour Estimation Model에 Refine된다. 즉, Keypoint는 더 자세한 Bounding Box(Green)를 추정하고, 다음 프레임의 Face Detection Tracking을 위해 재사용 될 수 있다. 이러한 전략 실패를 감지하기 위해, Contours model은 얼굴이 존재하는지와 제공된 Rectangular Crop에 적절하게 Align되었는지 탐지한다. 이러한 조건을 위반할 때 마다, BlazeFace Detector는 다시 시작된다. <br>
