@@ -92,7 +92,7 @@ MobileNetV2 bottleneck에서는 depth-increasing(expansion, Pointwise Conv) -> D
 예시로 나온 다른 Block들과 비교를 해보면, Resnet논문에서는 Residual Block의 SkipConnection을 통해 Vanishing Gradient를 방지해 더 깊은 Network학습이 가능했다. Resnet-50 이상부터는 파라미터 갯수도 많이지고 깊이도 깊어져 Bottleneck 구조의 $1×1$Conv를 적용해서 연산량도 줄이고, Overffiting도 방지하였다. MobileNetv2에서는 DepthWiseSeperable Conv를 이용한 Inverted Bottleneck 구조를 사용하여 모바일에서도 돌아가도록 연산량을 줄였다. BlazeBlock은 위에서 말한것 처럼 MobileNetv2의 Inverted Bottleneck 구조를 변경하여 사용한다.
 
 **Feature extractor.** <br>
-특정한 예를들기 위해, 정면 카메라 모델을 위한 Feature extractor에 초점을 둔다. 이것은 더 작은 범위의 Object Scale을 설명한다. 그러므로 더 낮은 계산량을 요구한다. Extractor는 $128×128$ RGB이미지를 input으로 하고, 5개의 Single BlazeBlock과 6개의 Double BlazeBlock으로 구성되있다. 가장 높은 tensor depth는 96이고, 가장 낮은 spatial resolution은 $8×8$이다. (SSD는 $1×1$ resolution까지 줄인다.)
+특정한 예를들기 위해, 정면 카메라 모델을 위한 Feature extractor에 초점을 둔다. 정면 카메라 모델은 더 작은 범위의 Object Scale을 다뤄서, 더 낮은 계산량을 요구한다. Extractor는 $128×128$ RGB이미지를 input으로 하고, 5개의 Single BlazeBlock과 6개의 Double BlazeBlock으로 구성되있다. 가장 높은 tensor depth는 96이고, 가장 낮은 spatial resolution은 $8×8$이다. (SSD는 $1×1$ resolution까지 줄인다.)
 
 
 **Anchor scheme.** <br>
@@ -103,7 +103,7 @@ SSD와 같은 Object Detection model들은 미리 정의한 고정된 사이즈�
 Object Scale 범위에 따라서 여러 해상도에서의 Anchor를 정의하는 것이 일반적이다. Aggressive downsampling은 또한 계산 리소스 최적화를 위한 방법이다. 전형적으로 SSD 모델은 $1×1$, $2×2$, $4×4$, $8×8$, $16×16$ Feature map sizes의 예측을 사용한다. 그러나 Pooling Pyramid Network(PPN) 구조는 Feature map 해상도에 도달한 후에는 추가적인 계산이 불필요할수 있다는 것을 시사한다. <br>
 <br>
 (Right) <br>
-이를 고려하여, 대안으로 Downsampling 없이 $8×8$ Feature map 차원에서 멈추는 Anchor 구조 채택하고, $8×8$, $4×4$, $2×2$ resolution의 각 픽셀당 2개의 Anchor를 $8×8$의 6개 Anchor로 교체한다. 사람 얼굴 모양의 제한된 비율로 인해, 가로 세로 1:1 비율로 제한된 Anchor는 얼굴을 정확히 Detection하는데 충분할 것이다.
+이를 고려하여, 대안으로 Downsampling 없이 $8×8$ Feature map 차원에서 멈추는 Anchor 구조 채택하고, Figure 2와 같이 $8×8$, $4×4$, $2×2$ resolution의 각 2개의 Anchor를 $8×8$의 6개 Anchor로 교체한다. 사람 얼굴 모양의 제한된 비율로 인해, 가로 세로 1:1 비율로 제한된 Anchor는 얼굴을 정확히 Detection하는데 충분할 것이다.
 
 
 **Post-processing.** <br>
