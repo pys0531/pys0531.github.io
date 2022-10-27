@@ -120,7 +120,11 @@ Sign Language, Yoga/Fitness Tracking 및 AR과 같은 다양한 성능 요구 �
 
 
 
-
+<br><br>
+#### <center>5. 정리</center>
+BlazePose의 가장 큰 장점은 정확도를 최대한 유지하면서 빠른속도를 내는것이다. 이를 위해 학습된 Heatmap의 Encoder 정보를 이용하여 Regression 학습에 이용하였고, 그결과 Mobile에서 돌아갈수 있을 정도의 속도를 얻었다. <br>
+또한, Detection의 속도는 다른 Network에 비해 속도가 많이 느리다. 그러므로, 초기 한번의 Detection을 실행 하고, 이후에는 Tracking을 진행하여 Pose Estimation만 실행하도록 한다. Detection 보조 Keypoint와 Pose Estimation 실행 후 나온 Landmark Keypoint로 Tracking을 진행하며, Tracking 중 사람이 존재하지 않을경우 다시 처음인 Tracking Step부터 실행한다. <br>
+BlazePose는 정확도에만 치중된 논문과는 다르게, 새로운 아이디어로 최대한의 효율을 이끌어낸 좋은 논문이라고 생각된다. 이를 바탕으로 다양한 Task에 적용이 가능할 것이라고 생각된다.
 
 
 </div>
