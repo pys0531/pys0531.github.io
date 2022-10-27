@@ -106,7 +106,7 @@ Invisible Points 예측을 돕기위해 Training 동안 Occlusion Augmentaion<fo
 <br><br>
 
 BlazePose는 용량이 다른 두개의 모델을 같는다. **<font size="3">( BlazePose Full (6.9 MFlop, 3.5M Params) / BlazePose Lite (2.7 MFlop, 1.3M Params) )</font>** 이러한 두 모델은 아래의 그림과 같이 AR Dataset에서 OpenPose 모델보다 약간 낮은성능을 갖지만, BlazePose Full 모델의 Yoga/Fitness Dataset의 경우 OpenPose보다 더 나은 성능을 보여준다. 동시에, BlazePose의 Single mid-tier phone CPU와 OpenPose의 20Core의 Desktop CPU와 비교하면 BlazePose가 25-75배 더 빠른 성능을 보여준다.
-
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-10-26-BlazePose/Table 1.png){: .align-center}
 
 
 
