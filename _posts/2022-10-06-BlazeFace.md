@@ -9,6 +9,7 @@ categories:
 tags:
   - Machin Learning
   - BlazeFace
+  - Detection
 last_modified_at: 2022-09-15T18:09:00-55:00
 ---
 
