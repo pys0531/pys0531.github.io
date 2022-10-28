@@ -30,7 +30,7 @@ BlazePose 논문 리뷰를 위해 의역하여 작성.
 #### <center>Abstract</center>
 
 BlazePose는 모바일에서 Human Pose Estimation을 Real-Time으로 실행하기 위한 lightweight Convolution Neural Network Architecture다.
-Network는 Single Person의 33개의 Body Keypoint를 추론하고, Pixel2 스마트폰에서 30FPS 이상으로 실행된다. 특히 Fitness Tracking / Sign Language Recognition과 같은 Real-Time에 적합하다. <br>
+Network는 Single Person의 33개의 Body Keypoint를 추론하고, Pixel2 스마트폰에서 30FPS 이상으로 실행된다. 특히 Fitness Tracking / Sign Language Recognition과 같은 Real-Time 사례에 적합하다. <br>
 새로운 Body Pose Tracking Solution과 Lightweight Body Pose Estimation Neural Network를 제공하고, 이러한 Network는 Keypoint Coordinates를 찾기 위해 Heatmap과 Regression 둘다 사용한다. <br>
 > Introduction을 들어가기 전에 간단히 추가 설명 하면, BlazePose의 주된 아이디어는 Body Pose Tracking과 Heatmap/Regression 두가지를 통한 학습방식이다. 이를 통해 높은 정확도와 Real-Time을 구현한다.
 
