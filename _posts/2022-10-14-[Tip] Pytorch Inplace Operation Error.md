@@ -5,9 +5,9 @@ toc: true
 toc_sticky: true
 use_math: true
 categories:
-  - Machin Learning
+  - Machine Learning
 tags:
-  - Machin Learning
+  - Machine Learning
   - Pytorch
   - Inplace Operation
   - Error
