@@ -8,8 +8,7 @@ categories:
   - Machin Learning
 tags:
   - Machin Learning
-  - BlazePose
-  - Pose Estimation
+  - GAN
 last_modified_at: 2022-09-15T18:09:00-55:00
 ---
 
@@ -132,7 +131,7 @@ _**end for**_ <br>
 
 <br><br>
 
-**4.1 Global Optimality of $p_g=p_{data}$** <br>
+##### 4.1 Global Optimality of $p_g=p_{data}$ <br>
 먼저 Generator $G$에 대한 최적의 Discriminator $D$를 가정한다.<br>
 ***Proposition 1.*** $G$가 fix될 경우, 최적의 Discriminator $D$는 <br><br>
 $$ \begin{align} D_{G}^*(x)=\frac{p_{data}(x)}{p_{data}(x)+p_g(x)} \end{align} $$
@@ -185,7 +184,7 @@ Jensen-Shannon divergence는 두 Distribution 사이를 Distance로 나타낸다
 
 
 <br><br>
-**4.2 Convergence of Algorithm 1** <br>
+##### 4.2 Convergence of Algorithm 1 <br>
 ***Proposition 2.*** 만약, $G$, $D$가 충분한 capacity를 가지고 있다면, ***Algorithm 1***의 각 step에서 $G$가 주어졌을때, Discriminator는 optimum에 도달할것이다. 그리고 $p_g$는 criterion을 개선하기 위해 업데이트 되면, $p_g$는 $p_data$로 수렴한다.
 <center> $$ \mathbb{E}_{x\sim p_{data}}\left [log D^*_G(x)  \right ]+\mathbb{E}_{x\sim p_g}\left [log (1-D^*_G(x))  \right ] $$ </center>
 <br>
