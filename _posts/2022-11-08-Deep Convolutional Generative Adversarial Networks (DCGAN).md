@@ -1,5 +1,5 @@
 ---
-title:  <font size="5">DCGAN 논문 리뷰</font>
+title:  <font size="5">DCGAN</font>
 excerpt: "Deep Convolutional Generative Adversarial Networks (DCGAN)"
 toc: true
 toc_sticky: true
