@@ -11,7 +11,7 @@ tags:
   - Eigen-value
   - Eigen-vector
   - Eigen-decomposition
-last_modified_at: 2022-09-15T18:09:00-55:00
+last_modified_at: 2022-09-26T18:09:00-55:00
 ---
 
 **<font size="4">Eigen-vector : </font>** 선형변환 후 방향이 변하지 않는 벡터 <br>

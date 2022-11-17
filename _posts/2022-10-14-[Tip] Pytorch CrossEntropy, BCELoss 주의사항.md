@@ -13,7 +13,7 @@ tags:
   - BCELoss
   - Error
   - Tip
-last_modified_at: 2022-09-15T18:09:00-55:00
+last_modified_at: 2022-10-14T18:09:00-55:00
 ---
 
 CrossEntropy Loss를 많이 사용하는데 Pytorch의 경우 Class가 2개일 경우(즉, Class가 0, 1) BCELoss 또는 BCEWithLogitsLoss를 사용해야된다. <br><br>

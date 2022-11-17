@@ -9,7 +9,7 @@ categories:
 tags:
   - Machine Learning
   - Batch Normalization
-last_modified_at: 2022-09-15T18:09:00-55:00
+last_modified_at: 2022-09-19T18:09:00-55:00
 ---
 
 **<font size="4">Batch Normalization</font>** : <font size="3">Batch 단위의 학습데이터를 정규화하여 성능 향상에 도움을 줌</font>

@@ -10,7 +10,7 @@ tags:
   - Machine Learning
   - BlazePose
   - Pose Estimation
-last_modified_at: 2022-09-15T18:09:00-55:00
+last_modified_at: 2022-10-26T18:09:00-55:00
 ---
 
 --------
