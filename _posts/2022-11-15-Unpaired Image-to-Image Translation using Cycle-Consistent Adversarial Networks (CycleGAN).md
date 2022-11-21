@@ -23,6 +23,7 @@ last_modified_at: 2022-11-15T18:09:00-55:00
 
 #### <center>CycleGAN</center>
 
+![]({{ site.url }}{{ site.baseurl }}/assets/images/2022-11-15-Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks (CycleGAN)/Figure 1.png){: .align-center}
 Image-to-Image translation은 aligned image pairs를 학습에 사용하여 input image에서 output image로 mapping 시키는것을 목적으로 한다. 
 Pix2Pix에서 발견된 고질적인 문제는, "pair된 image만 사용이 가능하다."는 것이다. <br>
 CycleGAN은 이러한 문제점을 해결하기 위해 unpaired image 상황에서, _source_ _domain_ $X$에서 _target_ _domain_ $Y$로 translation하는것을 학습을 목표로 하며, adversarial loss를 사용하여 $G(X)$의 image distribution이 $Y$의 distribution과 구별될수 없도록 mapping $G:X \to Y$를 학습한다. 왜냐하면, 이러한 mapping은 제약이 낮기 때문에, inverse mapping $F:Y->X$를 결합하고, $F(G(X)) \approx X$(또는 그 반대)가 되도록 cycle consistency loss를 추가한다.
