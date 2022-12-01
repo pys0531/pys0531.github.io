@@ -303,7 +303,7 @@ $${w}' = \overline{w}+\psi(w-\overline{w})$$에서 $\psi$값을 조절해 trunca
 
 4. bilinear sampling 대신에 nearest-neighbor up/downsampling으로 대체하고, 각 upsampling layer 후에 그리고 downsampling layer 전에 separable 2차 binomial filter로 activation을 lowpass filtering하여 실행
 5. progressive growing 학습에서는 $4^2$ 대신 $8^2$부터 시작
-6. FFHQ dataset에는 WGAN-GP loss로 변경하고 $\gamma=10$을 갖는 $R_1$ regularization 함께사용하여 non-saturating loss를 갖게함 
+6. FFHQ dataset에는 WGAN-GP loss를 non-saturating loss로 변경하고 $\gamma=10$을 갖는 $R_1$ regularization를 사용함 
 7. $R_1$은 WGAN-GP보다 FID score를 상당히 오랫동안 감소한다는것을 발견했고, 따라서 12M에서 25M image로 늘려 training 시간을 늘림 
 8. Progressive GAN과 동일한 learning rate, CelebA-HQ $512^2$ and $1024^3$에서는 0.003대신 0.002를 사용하는것이 더 안정적
 
