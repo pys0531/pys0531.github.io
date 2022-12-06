@@ -103,9 +103,12 @@ section 4.1에서는 minimax game이 $p_g = p_{data}$에 대해 global optimum�
 
 
 
-|***Algorithm 1*** Generative Adversarial Networks의 Minibatch stochastic gradient descent 학습. Discriminator에 적용할 단계의 수($k$)는 hyperparameter다. 여기서 가장 저렴한 $k=1$를 사용한다.|
-
 <font size = 2> <div markdown = "1">
+--------------------
+***Algorithm 1*** Generative Adversarial Networks의 Minibatch stochastic gradient descent 학습. Discriminator에 적용할 단계의 수($k$)는 hyperparameter다. 여기서 가장 저렴한 $k=1$를 사용한다.
+
+--------------------
+
 _**for** number of training iterations **do**_ <br>
 &#160;&#160;&#160;&#160; _**for** $k$ steps **do**_ <br>
 &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; $\bullet$ noise prior $p_g(z)$로 부터 $m$개의 noise samples $\begin{Bmatrix} z^{(1)}, .... , z^{(m)} \end{Bmatrix}$ Minibatch Sample 생성 <br>
